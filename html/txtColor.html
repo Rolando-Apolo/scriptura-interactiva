@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>txtColor</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Ewert&family=Hanalei&family=Londrina+Sketch&family=Monofett&family=Moo+Lah+Lah&family=Shizuru&family=Train+One&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <script>
+    let canvas;
+    let hr;
+    let vr;
+    let txtInput;
+    let slider;
+    let slider2;
+    let size;
+    let fr;
+    let font;
+    let sel;
+    let txt;
+    let button;
+    let button_save;
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+    function setup() {
+
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+      background(255);
+      cursor(HAND);
+
+      txtInput = createInput('Escribe aquí');
+      txtInput.position(40, 103);
+      txtInput.size(200);
+
+      slider = createSlider(10, 150, 50);
+      slider.position(40, 40);
+      slider2 = createSlider(3, 60, 5);
+      slider2.position(40, 70);
+
+      sel = createSelect();
+      sel.position(40, 140);
+      sel.option('Bungee Shade');
+      sel.option('Ewert');
+      sel.option('Hanalei');
+      sel.option('Londrina Sketch');
+      sel.option('Monofett');
+      sel.option('Moo Lah Lah');
+      sel.option('Shizuru');
+      sel.option('Train One');
+      sel.selected('Bungee Shade');
+
+      button = createButton("Delete");
+      button.mousePressed(changeColor);
+      button.position(192, 63);
+
+      button_save = createButton("Screenshot");
+      button_save.mousePressed(Guardar);
+      button_save.position(180, 138);
+    }
+
+    function Guardar() {
+      save("textColor.jpg");
+    }
+
+    function changeColor() {
+      background(255);
+    }
+
+    function draw() {
+
+      translate(mouseX, mouseY);
+
+      txt = txtInput.value();
+
+      hr = textWidth(txt);
+      vr = textAscent() + textDescent();
+
+      vr = size;
+
+      size = slider.value();
+      fr = slider2.value();
+      frameRate(fr);
+
+      font = sel.value();
+
+      fill(random(255), random(255), random(255));
+      textFont(font);
+      textSize(size);
+      text(txt, 0 - (hr / 2), 0 + (vr / 4));
+
+    }
+  </script>
+
+</body>
+
+</html>

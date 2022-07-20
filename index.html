@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Scriptura interactiva</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Sketch&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <script>
+    let canvas;
+    let a;
+    let time = 0.0;
+    let increment = 0.1;
+    let n;
+    let txt = "Scriptura interactiva";
+    let h_txt;
+    let v_txt;
+
+    function setup() {
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+
+      background(0);
+
+      a = createA('html/menu.html', txt);
+      a.style('text-decoration', 'none');
+      a.style('font-family', 'Londrina Outline');
+
+    }
+
+    function draw() {
+      fill(0, 15);
+      rect(0, 0, width, height);
+
+      let colorido = color(random(255), random(255), random(255));
+      a.style('color', colorido);
+
+      n = noise(time) * 150;
+      time += increment;
+      a.style('font-size', '70px');
+
+      h_txt = textWidth(txt);
+      v_txt = (textAscent() + textDescent());
+
+      a.position(width / 2 - 280, height / 2 - 25);
+
+
+      fill(colorido);
+      textSize(n);
+      textFont('Londrina Outline');
+      text(txt, width / 2 - (h_txt / 2), height / 2 + (v_txt / 2));
+
+    }
+  </script>
+
+</body>
+
+</html>

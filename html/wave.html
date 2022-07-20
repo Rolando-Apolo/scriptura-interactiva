@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wave</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Damion&family=Henny+Penny&family=Oleo+Script+Swash+Caps&family=Satisfy&family=Smooch&family=WindSong&family=Yellowtail&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <script>
+    let angle = 0.0;
+    let speed;
+    let speed2;
+
+    let canvas;
+    let txtInput;
+    let button;
+    let button_save;
+    let rgbColor1;
+    let rgbColor2;
+    let slider;
+    let slider2;
+    let font;
+    let sel;
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+    function setup() {
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+
+      txtInput = createInput('Escribe aquí');
+      txtInput.position(40, 140);
+      txtInput.size(200);
+
+      button = createButton("randomColor");
+      button.mousePressed(changeColor);
+      button.position(40, 105);
+
+      button_save = createButton("Screenshot");
+      button_save.mousePressed(Guardar);
+      button_save.position(162, 105);
+
+      slider = createSlider(1, 20, 5);
+      slider.position(40, 40);
+      slider2 = createSlider(5, 20, 5);
+      slider2.position(40, 70);
+
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+
+      sel = createSelect();
+      sel.position(40, 175);
+      sel.option('Henny Penny');
+      sel.option('Damion');
+      sel.option('Oleo Script Swash Caps');
+      sel.option('Satisfy');
+      sel.option('WindSong');
+      sel.option('Smooch');
+      sel.option('Yellowtail');
+      sel.selected('Henny Penny');
+
+    }
+
+    function Guardar() {
+      save("ondas.jpg");
+    }
+
+    function changeColor() {
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+    }
+
+
+    function draw() {
+      background(rgbColor1);
+      fill(rgbColor2);
+
+      speed2 = slider2.value();
+      frameRate(speed2);
+
+      font = sel.value();
+
+
+      textSize(23);
+      textFont(font);
+
+      for (let x = 0; x < windowWidth; x += 5) {
+        let y = windowHeight / 2 + sin(angle) * (windowHeight / 2);
+        text(txtInput.value(), x, y);
+
+        speed = slider.value();
+        angle += speed / 100;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

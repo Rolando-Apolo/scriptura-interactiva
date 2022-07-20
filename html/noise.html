@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Noise</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat&family=Courgette&family=Great+Vibes&family=Kaushan+Script&family=Sacramento&family=Smooch&family=The+Nautigal&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <script>
+    let txt;
+    let canvas;
+
+    let v = 0.0;
+    let inc = 0.02;
+
+    let button;
+    let button_save;
+    let rgbColor1;
+    let rgbColor2;
+    let txtInput;
+
+    let speed;
+    let speed2;
+    let slider;
+    let slider2;
+    let font;
+    let sel;
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+
+    function setup() {
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+
+      txtInput = createInput('Escribe aquí');
+      txtInput.position(40, 140);
+      txtInput.size(200);
+
+      button = createButton("randomColor");
+      button.mousePressed(changeColor);
+      button.position(40, 105);
+
+      button_save = createButton("Screenshot");
+      button_save.mousePressed(Guardar);
+      button_save.position(162, 105);
+
+      slider = createSlider(1, 15, 3);
+      slider.position(40, 40);
+      slider2 = createSlider(2, 40, 5);
+      slider2.position(40, 70);
+
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+
+      sel = createSelect();
+      sel.position(40, 175);
+      sel.option('Caveat');
+      sel.option('Courgette');
+      sel.option('Great Vibes');
+      sel.option('Kaushan Script');
+      sel.option('Sacramento');
+      sel.option('Smooch');
+      sel.option('The Nautigal');
+      sel.selected('Caveat');
+
+      frameRate(5);
+    }
+
+    function Guardar() {
+      save("noise.jpg");
+    }
+
+    function changeColor() {
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+    }
+
+    function draw() {
+
+      background(rgbColor1);
+      fill(rgbColor2);
+
+      speed2 = slider2.value();
+      frameRate(speed2);
+
+      txt = txtInput.value();
+      font = sel.value();
+
+      textSize(32);
+      textFont(font);
+
+      for (let i = 0; i < width; i += speed) { // i+=y  slider
+        let n = noise(v) * (height);
+        text(txt, i, n);
+        v = v + inc;
+        speed = slider.value();
+      }
+    }
+  </script>
+
+</body>
+
+</html>

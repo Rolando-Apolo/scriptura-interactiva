@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>7Words</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"
+    integrity="sha512-RvZgNFwDeJ4oPjuhkIrBki+I1LjEW6TXbQ+qHFKEPOR126hk1dkg+cvOCW6vUTHQEcryzTmEzTkvHKcGpEFNUw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"
+    integrity="sha512-lfl7IG9TmPKTuZ2ZIx2xfPRn2qWnfIleGc1LR7gm9jZOUVjki7lWJZJb1aB6AmxW3IL+2H98CgnXM3KtUV9BWw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Fascinate&family=Lobster&family=Pacifico&family=Teko:wght@300&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <script>
+    
+let canvas;
+let angle = 0.0;
+let speed;
+let dif = 22.5;
+let dim;
+
+let txtInput;
+let txt;
+let myArray = [];
+
+let slider;
+let button;
+let button_save;
+let rgbColor1;
+let rgbColor2;
+let rgbColor3;
+let sel;
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+function setup(){
+
+  canvas = createCanvas(windowWidth, windowHeight);
+  canvas.position(0, 0); 
+  canvas.style('z-index', '-1');
+
+  slider = createSlider(1,20, 3);
+  slider.position(40, 40); 
+
+  button = createButton("randomColor");
+  button.mousePressed(changeColor);
+  button.position(40, 75);
+
+  button_save = createButton("Screenshot");
+  button_save.mousePressed(Guardar);
+  button_save.position(162, 75);
+
+  rgbColor1 = color(random(255), random(255), random(255));
+  rgbColor2 = color(random(255), random(255), random(255));
+  rgbColor3 = color(random(255), random(255), random(255));
+
+  sel = createSelect();
+  sel.position(40, 150);
+  sel.option('Anton');
+  sel.option('Fascinate');
+  sel.option('Lobster');
+  sel.option('Pacifico');
+  sel.option('Teko');
+  sel.selected('Anton');
+
+  txtInput = createInput('escribe 7 palabras aquí tómale un screenshot'); 
+  txtInput. position(40, 113);
+  txtInput.size(200);
+
+  angleMode(RADIANS);
+}
+
+function Guardar(){
+  save("7palabras.jpg"); 
+}
+
+function changeColor(){
+  rgbColor1 = color(random(255), random(255), random(255));
+  rgbColor2 = color(random(255), random(255), random(255));
+  rgbColor3 = color(random(255), random(255), random(255));
+
+  }
+
+function draw(){
+  background(rgbColor1);
+
+  dim = (height/7);
+  textSize(dim);
+  textFont(sel.value()); 
+
+  speed = slider.value(); 
+ 
+  txt = txtInput.value(); 
+  myArray = txt.split(" ");  
+
+  let x1 = width/2 +(sin(angle + radians(135)) *(width/2)); //135°
+  let x2 = width/2 +(sin(angle + radians(90)) *(width/2)); //90°
+  let x3 = width/2 +(sin(angle + radians(45)) *(width/2));//45°
+  let x4 = width/2 +(sin(angle + radians(360)) *(width/2));//360°
+  let x5 = width/2 +(sin(angle + radians(315)) *(width/2));//315°
+  let x6 = width/2 +(sin(angle + radians(270)) *(width/2)); //270°
+  let x7 = width/2 +(sin(angle + radians(225)) *(width/2));//225°  
+ 
+  fill(rgbColor2);
+  text(myArray[0], x1, dim);
+  text(myArray[1], x2, dim*2);
+  text(myArray[2], x3, dim*3);
+  text(myArray[3], x4, dim*4);
+  text(myArray[4], x5, dim*5);
+  text(myArray[5], x6, dim*6);
+  text(myArray[6], x7, dim*7);
+  
+  let x1_1 = width/2 +(sin(angle + (radians(135)-dif)) *(width/2)); //135°
+  let x2_2 = width/2 +(sin(angle + (radians(90)-dif)) *(width/2)); //90°
+  let x3_3 = width/2 +(sin(angle + (radians(45)-dif)) *(width/2));//45°
+  let x4_4 = width/2 +(sin(angle + (radians(360)-dif)) *(width/2));//360°
+  let x5_5 = width/2 +(sin(angle + (radians(315)-dif)) *(width/2));//315°
+  let x6_6 = width/2 +(sin(angle + (radians(270)-dif)) *(width/2)); //270°
+  let x7_7 = width/2 +(sin(angle + (radians(225)-dif)) *(width/2));//225°  
+  
+  fill(rgbColor3);
+  text(myArray[0], x1_1 , dim);
+  text(myArray[1], x2_2 , dim*2);
+  text(myArray[2], x3_3 , dim*3);
+  text(myArray[3], x4_4 , dim*4);
+  text(myArray[4], x5_5 , dim*5);
+  text(myArray[5], x6_6 , dim*6);
+  text(myArray[6], x7_7 , dim*7);
+
+  angle += speed/100;
+
+}
+  </script>
+
+</body>
+
+</html>

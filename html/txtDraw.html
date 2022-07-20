@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>txtDraw</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Aclonica&family=Audiowide&family=Berkshire+Swash&family=Lobster+Two&family=Monoton&family=Permanent+Marker&family=Righteous&family=Skranji&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <script>
+    let txt;
+    let sumatoria = 0;
+    let grosor;
+    let letra;
+    let largo;
+
+    let canvas;
+    let txtInput;
+    let button;
+    let button_save;
+    let button_delete;
+    let rgbColor1;
+    let rgbColor2;
+    let sel;
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+    function setup() {
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+      background(rgbColor2);
+      fill(rgbColor1);
+
+      txtInput = createInput('Escribe aquí');
+      txtInput.position(40, 90);
+      txtInput.size(200);
+
+      button = createButton("randomColor");
+      button.mousePressed(changeColor);
+      button.position(40, 50);
+
+      button_save = createButton("Screenshot");
+      button_save.mousePressed(Guardar);
+      button_save.position(165, 50);
+
+      button_delete = createButton("Delete");
+      button_delete.mousePressed(Borrar);
+      button_delete.position(193, 128);
+
+
+      sel = createSelect();
+      sel.position(40, 130);
+      sel.option('Berkshire Swash');
+      sel.option('Lobster Two');
+      sel.option('Monoton');
+      sel.option('Permanent Marker');
+      sel.option('Aclonica');
+      sel.option('Righteous');
+      sel.option('Audiowide');
+      sel.option('Skranji');
+      sel.selected('Berkshire Swash');
+
+    }
+
+    function changeColor() {
+
+      rgbColor1 = color(random(255), random(255), random(255));
+      rgbColor2 = color(random(255), random(255), random(255));
+
+      background(rgbColor2);
+      fill(rgbColor1);
+
+    }
+
+    function Guardar() {
+      save("spdLetras.jpg");
+    }
+
+    function Borrar() {
+      background(rgbColor2);
+    }
+
+    function draw() {
+
+    }
+
+
+    function mouseDragged() {
+      //mouseMoved()
+
+      txt = txtInput.value();
+      largo = txt.length;
+      letra = txt.charAt(sumatoria);
+      grosor = dist(mouseX, mouseY, pmouseX, pmouseY);
+
+      font = sel.value();
+
+      textFont(font);
+      textSize(grosor + 1);
+      text(letra, mouseX, mouseY);
+
+      sumatoria += 1;
+      if (sumatoria == largo) {
+        sumatoria = 0;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

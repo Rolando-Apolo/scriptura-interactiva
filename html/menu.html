@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Menu</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+
+  <link rel="icon" href="../imagenes/favicon.png" type="image/png" sizes="16 x 16">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Londrina+Shadow&family=Londrina+Sketch&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <script>
+    let canvas;
+    let wave;
+    let noise;
+    let txtDraw;
+    let txtColor;
+    let sevenWords;
+    let numRdm = 150;
+
+    let speed = 3;
+    let x1, y1, x2, y2, x3, y3, x4, y4, x5, y5;
+
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+
+    function setup() {
+      canvas = createCanvas(windowWidth, windowHeight);
+      canvas.position(0, 0);
+      canvas.style('z-index', '-1');
+
+      x1 = (width / 2 + random(-numRdm * 4, numRdm));
+      y1 = (height / 2 + random(-numRdm * 3, numRdm));
+      x2 = (width / 2 + random(-numRdm * 4, numRdm));
+      y2 = (height / 2 + random(-numRdm * 3, numRdm));
+      x3 = (width / 2 + random(-numRdm * 4, numRdm));
+      y3 = (height / 2 + random(-numRdm * 3, numRdm));
+      x4 = (width / 2 + random(-numRdm * 4, numRdm));
+      y4 = (height / 2 + random(-numRdm * 3, numRdm));
+      x5 = (width / 2 + random(-numRdm * 4, numRdm));
+      y5 = (height / 2 + random(-numRdm * 3, numRdm));
+
+
+      wave = createA('wave.html', 'Wave');
+      wave.style('text-decoration', 'none');
+      wave.style('font-family', 'Londrina Outline');
+      wave.style('font-size', random(50, 150) + 'px');
+
+      noise = createA('noise.html', 'Noise');
+      noise.style('text-decoration', 'none');
+      noise.style('font-family', 'Londrina Outline');
+      noise.style('font-size', random(50, 150) + 'px');
+
+      txtDraw = createA('txtDraw.html', 'txtDraw');
+      txtDraw.style('text-decoration', 'none');
+      txtDraw.style('font-family', 'Londrina Outline');
+      txtDraw.style('font-size', random(50, 150) + 'px');
+
+      txtColor = createA('txtColor.html', 'txtColor');
+      txtColor.style('text-decoration', 'none');
+      txtColor.style('font-family', 'Londrina Outline');
+      txtColor.style('font-size', random(50, 150) + 'px');
+
+      sevenWords = createA('sevenWords.html', '7Words');
+      sevenWords.style('text-decoration', 'none');
+      sevenWords.style('font-family', 'Londrina Outline');
+      sevenWords.style('font-size', random(70, 150) + 'px');
+
+
+    }
+
+    function draw() {
+      background(0);
+
+      let rdmColor1 = color(random(255), random(255), random(255));
+      let rdmColor2 = color(random(255), random(255), random(255));
+      let rdmColor3 = color(random(255), random(255), random(255));
+      let rdmColor4 = color(random(255), random(255), random(255));
+      let rdmColor5 = color(random(255), random(255), random(255));
+
+      x1 += random(-speed, speed);
+      y1 += random(-speed, speed);
+      x1 = constrain(x1, 0, windowWidth);
+      y1 = constrain(y1, 0, windowHeight);
+
+      x2 += random(-speed, speed);
+      y2 += random(-speed, speed);
+      x2 = constrain(x2, 0, windowWidth);
+      y2 = constrain(y2, 0, windowHeight);
+
+      x3 += random(-speed, speed);
+      y3 += random(-speed, speed);
+      x3 = constrain(x3, 0, windowWidth);
+      y3 = constrain(y3, 0, windowHeight);
+
+      x4 += random(-speed, speed);
+      y4 += random(-speed, speed);
+      x4 = constrain(x4, 0, windowWidth);
+      y4 = constrain(y4, 0, windowHeight);
+
+      x5 += random(-speed, speed);
+      y5 += random(-speed, speed);
+      x5 = constrain(x5, 0, windowWidth);
+      y5 = constrain(y5, 0, windowHeight);
+
+      wave.style('color', rdmColor1);
+      wave.position(x1, y1);
+
+      noise.style('color', rdmColor2);
+      noise.position(x2, y2);
+
+      txtColor.style('color', rdmColor3);
+      txtColor.position(x3, y3);
+
+      txtDraw.style('color', rdmColor4);
+      txtDraw.position(x4, y4);
+
+      sevenWords.style('color', rdmColor5);
+      sevenWords.position(x5, y5);
+    }
+  </script>
+
+</body>
+
+</html>
